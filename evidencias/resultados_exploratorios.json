@@ -1,0 +1,18 @@
+[
+  {
+    "id": "EXP01",
+    "cenario": "Cadastrar ISBN com dígito verificador errado (978-85-359-0277-1).",
+    "esperado": "Cadastro bloqueado.",
+    "obtido": "Mensagem: \"Livro cadastrado com sucesso.\"",
+    "status": "Reprovado",
+    "evidencia": "EXP01_isbn_digito_errado.png"
+  },
+  {
+    "id": "EXP02",
+    "cenario": "Código de referência: alterar NC01 para Corrigida e recarregar.",
+    "esperado": "Status permanece Corrigida.",
+    "obtido": "Antes de recarregar: 2 NC aberta(s). Após recarregar: NC01 voltou para 'Pendente', 3 NC aberta(s).",
+    "status": "Reprovado",
+    "evidencia": "EXP02_referencia_status_nc_apos_recarregar.png"
+  }
+]

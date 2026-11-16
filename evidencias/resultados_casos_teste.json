@@ -1,0 +1,106 @@
+[
+  {
+    "id": "CT01",
+    "cenario": "Cadastrar livro com todos os campos válidos.",
+    "esperado": "Livro salvo e exibido como Disponível.",
+    "obtido": "Mensagem \"Livro cadastrado com sucesso.\"; linha mostra \"Disponível (2)\".",
+    "status": "Aprovado",
+    "evidencia": "CT01_cadastro_valido.png"
+  },
+  {
+    "id": "CT02",
+    "cenario": "Salvar livro sem título e sem autor.",
+    "esperado": "Cadastro bloqueado com mensagem.",
+    "obtido": "Mensagem \"Informe o título. Informe o autor.\"; acervo continua com 1 livro.",
+    "status": "Aprovado",
+    "evidencia": "CT02_obrigatorios.png"
+  },
+  {
+    "id": "CT03",
+    "cenario": "Cadastrar ISBN já existente, digitado sem hífens.",
+    "esperado": "Bloqueado por duplicidade.",
+    "obtido": "Mensagem \"Já existe livro cadastrado com este ISBN.\".",
+    "status": "Aprovado",
+    "evidencia": "CT03_isbn_duplicado.png"
+  },
+  {
+    "id": "CT04",
+    "cenario": "ISBN com letras (97885ABC02778), curto (12345) e com dígito errado (978-85-359-0277-1).",
+    "esperado": "Rejeitado com formato esperado.",
+    "obtido": "As três entradas foram rejeitadas com \"ISBN inválido...\".",
+    "status": "Aprovado",
+    "evidencia": "CT04_isbn_invalido.png"
+  },
+  {
+    "id": "CT05",
+    "cenario": "Editar a editora de Dom Casmurro.",
+    "esperado": "Alteração salva; demais campos preservados.",
+    "obtido": "Editora alterada; autor, ISBN e exemplares mantidos.",
+    "status": "Aprovado",
+    "evidencia": "CT05_edicao.png"
+  },
+  {
+    "id": "CT06",
+    "cenario": "Registrar empréstimo de Dom Casmurro para Ana Souza (prazo padrão 14 dias).",
+    "esperado": "Ativo; disponibilidade cai de 2 para 1.",
+    "obtido": "Mensagem \"Empréstimo de \"Dom Casmurro\" para Ana Souza registrado. Devolução prevista: 30/11/2026.\"; disponibilidade passou para 1.",
+    "status": "Aprovado",
+    "evidencia": "CT06_emprestimo.png"
+  },
+  {
+    "id": "CT07",
+    "cenario": "Emprestar o 2º (último) exemplar de Dom Casmurro.",
+    "esperado": "Indisponível e fora da lista de seleção.",
+    "obtido": "Livro marcado como Indisponível; opções com o título na lista: 0.",
+    "status": "Aprovado",
+    "evidencia": "CT07_indisponivel.png"
+  },
+  {
+    "id": "CT08",
+    "cenario": "Devolução prevista igual à data do empréstimo e depois 45 dias após.",
+    "esperado": "Bloqueado com mensagem de prazo.",
+    "obtido": "1ª: \"A devolução prevista deve ser posterior à data do empréstimo.\" 2ª: \"O prazo máximo de empréstimo é de 30 dias.\"",
+    "status": "Aprovado",
+    "evidencia": "CT08_prazo_invalido.png"
+  },
+  {
+    "id": "CT09",
+    "cenario": "Registrar devolução do empréstimo de Ana Souza.",
+    "esperado": "Devolvido; exemplar volta a ficar disponível.",
+    "obtido": "Situação Devolvido; Dom Casmurro voltou para Disponível (1).",
+    "status": "Aprovado",
+    "evidencia": "CT09_devolucao.png"
+  },
+  {
+    "id": "CT10",
+    "cenario": "Excluir Dom Casmurro (empréstimo de Bruno em aberto).",
+    "esperado": "Exclusão bloqueada.",
+    "obtido": "Mensagem \"Não é possível excluir \"Dom Casmurro\": há 1 empréstimo(s) em aberto. Registre a devolução primeiro.\".",
+    "status": "Aprovado",
+    "evidencia": "CT10_exclusao_bloqueada.png"
+  },
+  {
+    "id": "CT11",
+    "cenario": "Excluir O Cortiço: cancelar e depois confirmar.",
+    "esperado": "Cancelar mantém; confirmar remove.",
+    "obtido": "Após cancelar: 1 registro; após confirmar: 0.",
+    "status": "Aprovado",
+    "evidencia": "CT11_exclusao_confirmacao.png"
+  },
+  {
+    "id": "CT12",
+    "cenario": "Recarregar a página.",
+    "esperado": "Livro e empréstimos continuam.",
+    "obtido": "Livro e 2 empréstimos presentes após recarregar.",
+    "status": "Aprovado",
+    "evidencia": "CT12_persistencia.png"
+  },
+  {
+    "id": "CT13",
+    "cenario": "Regressão após correção do ISBN: repetir CT03, CT04 e cadastrar ISBN-10 válido terminado em X.",
+    "esperado": "Validações funcionam e ISBN válido é aceito.",
+    "obtido": "Duplicado bloqueado; dígito errado rejeitado; 0-8044-2957-X aceito.",
+    "status": "Aprovado",
+    "evidencia": "CT13_regressao.png"
+  }
+]

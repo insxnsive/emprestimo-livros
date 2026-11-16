@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Empréstimo de Livros</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container">
+
+    <header class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2z" />
+          <path d="M6 21h13v-3" />
+          <path d="M9 7h6" />
+        </svg>
+      </span>
+      <div>
+        <h1>Empréstimo de Livros</h1>
+        <p class="subtitle">Acervo, empréstimos, devoluções e qualidade em um só lugar.</p>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Seções do sistema">
+      <button class="tab active" data-tab="books">Acervo de livros</button>
+      <button class="tab" data-tab="loans">Empréstimos e devoluções</button>
+      <button class="tab" data-tab="quality">Painel da qualidade</button>
+    </nav>
+
+    <!-- ============================ ACERVO ============================ -->
+    <section id="books" class="tab-panel active">
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <h2 id="book-form-title">Cadastrar livro</h2>
+            <p>Campos com * são obrigatórios.</p>
+          </div>
+          <span class="tag violet">Acervo</span>
+        </div>
+
+        <div id="book-feedback" class="feedback" role="status" aria-live="polite"></div>
+
+        <form id="book-form" novalidate>
+          <input type="hidden" id="book-id">
+          <div class="form-grid">
+            <label class="span-2">Título *
+              <input id="title" maxlength="120" placeholder="Ex.: Dom Casmurro">
+            </label>
+            <label>Autor *
+              <input id="author" maxlength="80" placeholder="Ex.: Machado de Assis">
+            </label>
+            <label>ISBN *
+              <input id="isbn" maxlength="17" placeholder="978-85-359-0277-8">
+            </label>
+            <label>Editora
+              <input id="publisher" maxlength="60" placeholder="Ex.: Companhia das Letras">
+            </label>
+            <label>Ano de publicação
+              <input id="year" type="number" min="1450" step="1" placeholder="2019">
+            </label>
+            <label>Gênero
+              <select id="genre">
+                <option value="">Selecione</option>
+                <option>Romance</option>
+                <option>Conto</option>
+                <option>Poesia</option>
+                <option>Ficção científica</option>
+                <option>Fantasia</option>
+                <option>Biografia</option>
+                <option>Técnico</option>
+                <option>Didático</option>
+                <option>Infantojuvenil</option>
+                <option>Outro</option>
+              </select>
+            </label>
+            <label>Exemplares *
+              <input id="copies" type="number" min="1" max="99" step="1" value="1">
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn primary" id="book-save">Salvar livro</button>
+            <button type="button" class="btn secondary" id="book-cancel" hidden>Cancelar edição</button>
+            <button type="reset" class="btn ghost" id="book-clear">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading list-heading">
+          <div>
+            <h2>Consulta de disponibilidade</h2>
+            <p><span id="book-count">0</span> livro(s) no acervo</p>
+          </div>
+          <div class="filters">
+            <input id="book-search" class="search" type="search"
+                   placeholder="Buscar por título, autor ou ISBN" aria-label="Buscar livros">
+            <label class="inline-check">
+              <input type="checkbox" id="only-available"> Somente disponíveis
+            </label>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th><th>Autor</th><th>ISBN</th>
+                <th>Exemplares</th><th>Disponibilidade</th><th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="book-list"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- ========================== EMPRÉSTIMOS ========================== -->
+    <section id="loans" class="tab-panel">
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <h2>Registrar empréstimo</h2>
+            <p>Somente livros com exemplar disponível aparecem na lista. Prazo máximo: 30 dias.</p>
+          </div>
+          <span class="tag orange">Empréstimo</span>
+        </div>
+
+        <div id="loan-feedback" class="feedback" role="status" aria-live="polite"></div>
+
+        <form id="loan-form" novalidate>
+          <div class="form-grid">
+            <label class="span-2">Livro *
+              <select id="loan-book"></select>
+            </label>
+            <label>Nome do leitor *
+              <input id="reader" maxlength="80" placeholder="Ex.: Ana Souza">
+            </label>
+            <label>E-mail do leitor
+              <input id="reader-email" type="email" maxlength="80" placeholder="ana@exemplo.com">
+            </label>
+            <label>Data do empréstimo *
+              <input id="loan-date" type="date">
+            </label>
+            <label>Devolução prevista *
+              <input id="due-date" type="date">
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn primary" id="loan-save">Registrar empréstimo</button>
+            <button type="reset" class="btn ghost" id="loan-clear">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading list-heading">
+          <div>
+            <h2>Empréstimos registrados</h2>
+            <p><span id="loan-active-count">0</span> em aberto · <span id="loan-late-count">0</span> em atraso</p>
+          </div>
+          <div class="filters">
+            <input id="loan-search" class="search" type="search"
+                   placeholder="Buscar por leitor ou livro" aria-label="Buscar empréstimos">
+            <select id="loan-filter" aria-label="Filtrar por situação">
+              <option value="all">Todas as situações</option>
+              <option value="Ativo">Ativos</option>
+              <option value="Atrasado">Atrasados</option>
+              <option value="Devolvido">Devolvidos</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Livro</th><th>Leitor</th><th>Empréstimo</th><th>Previsto</th>
+                <th>Devolvido em</th><th>Situação</th><th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="loan-list"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===================== PAINEL DA QUALIDADE ===================== -->
+    <section id="quality" class="tab-panel">
+
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <h2>Painel de Gestão da Qualidade</h2>
+            <p>Acompanhe critérios, testes, riscos e não conformidades do produto.</p>
+          </div>
+          <span class="tag teal">Gestão</span>
+        </div>
+        <div class="metric-grid">
+          <article class="metric"><span>Livros no acervo</span><strong id="m-books">0</strong></article>
+          <article class="metric"><span>Empréstimos em aberto</span><strong id="m-loans">0</strong></article>
+          <article class="metric"><span>Checklist atendido</span><strong id="m-check">0%</strong></article>
+          <article class="metric">
+            <span>Testes aprovados</span><strong id="m-tests">0%</strong>
+            <small id="m-tests-detail">0 de 0 executados</small>
+          </article>
+          <article class="metric"><span>Não conformidades abertas</span><strong id="m-nc-open">0</strong></article>
+          <article class="metric"><span>NCs corrigidas</span><strong id="m-nc-fixed">0%</strong></article>
+          <article class="metric"><span>Riscos monitorados</span><strong id="m-risks">0</strong></article>
+          <article class="metric"><span>Riscos altos sem resposta</span><strong id="m-risks-open">0</strong></article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Critérios e checklist de qualidade</h2>
+        <p class="muted">Marque cada critério após verificar a evidência correspondente.</p>
+        <div id="quality-checklist" class="checklist"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Casos de teste</h2>
+        <p class="muted">O indicador de aprovação considera apenas os testes executados.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Cenário</th><th>Resultado esperado</th><th>Resultado obtido</th></tr>
+            </thead>
+            <tbody id="test-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Riscos do projeto</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Resposta planejada</th></tr>
+            </thead>
+            <tbody id="risk-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Não conformidades e ações</h2>
+        <p class="muted">Ocorrências registradas durante os testes.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>ID</th><th>Não conformidade</th><th>Severidade</th><th>Ação corretiva</th><th>Status</th></tr>
+            </thead>
+            <tbody id="nc-list"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Ciclo de melhoria contínua – PDCA</h2>
+        <div class="pdca-grid">
+          <article>
+            <b>Planejar (Plan)</b>
+            <p>Testes mostraram que o ISBN era aceito só pela quantidade de dígitos.
+               Meta: rejeitar ISBN com dígito verificador inválido.</p>
+          </article>
+          <article>
+            <b>Executar (Do)</b>
+            <p>Implementar o cálculo do dígito verificador (ISBN-10 e ISBN-13) e uma mensagem de erro específica.</p>
+          </article>
+          <article>
+            <b>Verificar (Check)</b>
+            <p>Repetir CT03 e CT04 (regressão) e comparar o resultado com o critério Q02.</p>
+          </article>
+          <article>
+            <b>Agir (Act)</b>
+            <p>Padronizar a regra, atualizar o checklist e manter o teste de ISBN inválido na regressão.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <p class="disclaimer">
+      Aplicação demonstrativa. Os dados ficam salvos no navegador (LocalStorage). Use apenas dados fictícios.
+    </p>
+  </main>
+
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/qualidade.js"></script>
+</body>
+</html>
