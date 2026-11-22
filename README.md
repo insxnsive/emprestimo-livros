@@ -1,5 +1,7 @@
 # Empréstimo de Livros
 
+*THIS IS A UNIVERSITY PROJECT DONE BY/AND WITH OTHER STUDENTS.*
+
 A small book-loan app for a software quality management course. You register books, lend them to readers, record returns, and track the project's quality work in a dashboard. The interface is in Brazilian Portuguese.
 
 It runs in the browser with no backend. Open `index.html` in Chrome, Edge or Firefox. Data lives in the browser's LocalStorage, so clearing it deletes everything.
